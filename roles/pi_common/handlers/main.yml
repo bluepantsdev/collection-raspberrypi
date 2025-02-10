@@ -1,0 +1,12 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for roles/pi-collection
+- name: restart timezone dependent services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items: "{{ raspi_config_timezone_dependent_services }}"
+
+- name: set default locale
+  command: sed -i "s/^\s*LANG=\S*/LANG={{ default_locale }}/" /etc/default/locale
+  when: default_locale is true
