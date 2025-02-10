@@ -1,0 +1,15 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/pi-collection
+- name: Raspi-config | Sets the timezone
+  community.general.timezone:
+    name: "{{ host_timezone }}"
+  notify: restart timezone dependent services
+  become: true
+
+- name: Raspi-config | Set locale
+  community.general.locale_gen:
+    name: "{{ default_locale }}"
+    state: present
+  become: true
+  notify: set default locale
