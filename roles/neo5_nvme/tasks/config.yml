@@ -26,7 +26,7 @@
 
 - name: Add NVMe PCIe Params to config.txt
   ansible.builtin.lineinfile:
-    line: dtparam=pciex1_1=gen3
+    line: dtparam=pciex1=gen3
     path: "{{ configtxt_path.stat.path }}"
   when: configtxt_path.stat.exists
   notify: Reboot system
